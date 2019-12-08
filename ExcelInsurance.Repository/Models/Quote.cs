@@ -10,10 +10,12 @@ namespace ExcelInsurance.Repository.Models
     {
         public int Id { get; set; }
         public string Type { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public double Amount { get; set; }
-        public string InsurerName { get; set; }
+        public string InsurerFirstName { get; set; }
+        public string InsurerLastName { get; set; }
+        public string InsurerMiddleName { get; set; }
         public string Address { get; set; }
         public string State { get; set; }
         public string Country { get; set; }

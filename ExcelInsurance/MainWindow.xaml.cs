@@ -65,7 +65,7 @@ namespace ExcelInsurance
 
                 this.quoteDataGrid.Visibility = Visibility.Visible;
                 this.btn_AddQuote.Visibility = Visibility.Visible;
-                this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes();
+                this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
             }
         }
 
@@ -94,7 +94,7 @@ namespace ExcelInsurance
 
                 this.quoteDataGrid.Visibility = Visibility.Visible;
                 this.btn_AddQuote.Visibility = Visibility.Visible;
-                this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes();
+                this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
             }
         }
 
@@ -107,6 +107,39 @@ namespace ExcelInsurance
         }
 
         private void Btn_AddQuote_Click(object sender, RoutedEventArgs e)
+        {
+            NewQuote newQuoteWindow = new NewQuote();
+            newQuoteWindow.ShowDialog();
+            string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+            this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
+        }
+
+        private void Btn_ViewPolicy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_EditPolicy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_DeletePolicy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_View_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_EditQuote_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_DeleteQuote_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -6,7 +6,7 @@ namespace ExcelInsurance.Repository.Interfaces
 {
     public interface IQuoteManager
     {
-        List<Quote> GetQuotes();
+        List<Quote> GetQuotes(string filter);
         Quote GetQuote(int quoteId);
         bool AddQuote(Quote quote);
         bool RemoveQuote(int quoteId);

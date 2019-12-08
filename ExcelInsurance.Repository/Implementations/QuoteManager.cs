@@ -69,11 +69,12 @@ namespace ExcelInsurance.Repository.Implementations
             }
         }
 
-        public List<Quote> GetQuotes()
+        public List<Quote> GetQuotes(string filter)
         {
+            string query = filter == "ALL" ? "select * from tblQuote" : "select * from tblQuote where Type=@Type";
             using (dbConnection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString))
             {
-                return dbConnection.Query<Quote>("select * from tblQuote").ToList();
+                return dbConnection.Query<Quote>(query,new { Type = filter }).ToList();
             }
         }
 

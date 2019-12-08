@@ -48,6 +48,28 @@
                     <DataGridTextColumn Header="Plicy amount" Binding="{Binding Amount}" Width="*" />
                     <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" Width="*" />
                     <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" Width="*" />
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="View" Name="btn_ViewPolicy" Click="Btn_ViewPolicy_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit" Name="btn_EditPolicy" Click="Btn_EditPolicy_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Name="btn_DeletePolicy" Click="Btn_DeletePolicy_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <DataGrid x:Name="quoteDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="0 0 0 10">
@@ -63,6 +85,28 @@
                     <DataGridTextColumn Header="Plicy amount" Binding="{Binding Amount}" Width="*" />
                     <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" Width="*" />
                     <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" Width="*" />
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="View" Name="btn_View" Click="Btn_View_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit" Name="btn_EditQuote" Click="Btn_EditQuote_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Name="btn_DeleteQuote" Click="Btn_DeleteQuote_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Button x:Name="btn_AddPolicy" Content="Add Policy" Click="Btn_AddPolicy_Click" Width="200" Height="50"/>
