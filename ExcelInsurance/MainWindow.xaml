@@ -1,0 +1,72 @@
+﻿<Window x:Class="ExcelInsurance.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExcelInsurance"
+        mc:Ignorable="d"
+        Title="Excel Insurance" Height="700" Width="1000" WindowStartupLocation="CenterScreen" FontSize="16">
+    <Border Margin="20" Padding="10" BorderBrush="LightGray" BorderThickness="2">
+        <StackPanel>
+            <Grid Margin="0 0 0 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Select division" FontWeight="SemiBold" />
+                <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cb_DivisionSelection" SelectionChanged="Cb_DivisionSelection_SelectionChanged">
+                    <ComboBoxItem Content="---All---" Tag="ALL" IsSelected="True" />
+                    <ComboBoxItem Content="Health" Tag="HEALTH" />
+                    <ComboBoxItem Content="Travel" Tag="TRAVEL" />
+                    <ComboBoxItem Content="Automobile" Tag="AUTOMOBILE" />
+                    <ComboBoxItem Content="Retail" Tag="RETAIL" />
+                    <ComboBoxItem Content="Real estate" Tag="REALESTATE" />
+                </ComboBox>
+
+                <Label Grid.Row="0" Grid.Column="3" Content="Data to view" FontWeight="SemiBold" />
+                <ComboBox Grid.Row="0" Grid.Column="4" x:Name="cb_DataToView" SelectionChanged="Cb_DataToView_SelectionChanged">
+                    <ComboBoxItem Content="Policy" Tag="POLICY" IsSelected="True" />
+                    <ComboBoxItem Content="Quote" Tag="QUOTE" />
+                </ComboBox>
+            </Grid>
+            <DataGrid x:Name="policyDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="0 0 0 10">
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Policy id" Binding="{Binding Id}" Width="*" />
+                    <DataGridTextColumn Header="Insurer firstname" Binding="{Binding InsurerFirstName}" Width="*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Insurer lastname" Binding="{Binding InsurerLastName}" Width="*" CanUserSort="False" />
+                    <DataGridTextColumn Header="Plicy amount" Binding="{Binding Amount}" Width="*" />
+                    <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" Width="*" />
+                    <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="quoteDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="0 0 0 10">
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Policy id" Binding="{Binding Id}" Width="*" />
+                    <DataGridTextColumn Header="Insurer firstname" Binding="{Binding InsurerFirstName}" Width="*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Insurer lastname" Binding="{Binding InsurerLastName}" Width="*" CanUserSort="False" />
+                    <DataGridTextColumn Header="Plicy amount" Binding="{Binding Amount}" Width="*" />
+                    <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" Width="*" />
+                    <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="btn_AddPolicy" Content="Add Policy" Click="Btn_AddPolicy_Click" Width="200" Height="50"/>
+            <Button x:Name="btn_AddQuote" Content="Add Quote" Click="Btn_AddQuote_Click" Width="200" Height="50"/>
+        </StackPanel>
+    </Border>
+</Window>

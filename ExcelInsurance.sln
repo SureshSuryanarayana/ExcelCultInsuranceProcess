@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelInsurance", "ExcelInsurance\ExcelInsurance.csproj", "{94AD0D5E-4427-423F-A6F9-7DE2010AD7FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelInsurance.Repository", "ExcelInsurance.Repository\ExcelInsurance.Repository.csproj", "{828117B4-5CF5-4AC7-BCB3-ACC558744EA8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94AD0D5E-4427-423F-A6F9-7DE2010AD7FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94AD0D5E-4427-423F-A6F9-7DE2010AD7FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94AD0D5E-4427-423F-A6F9-7DE2010AD7FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94AD0D5E-4427-423F-A6F9-7DE2010AD7FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{828117B4-5CF5-4AC7-BCB3-ACC558744EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{828117B4-5CF5-4AC7-BCB3-ACC558744EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{828117B4-5CF5-4AC7-BCB3-ACC558744EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{828117B4-5CF5-4AC7-BCB3-ACC558744EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20388671-64AC-46AD-A568-A8CEB4AED1A2}
+	EndGlobalSection
+EndGlobal
