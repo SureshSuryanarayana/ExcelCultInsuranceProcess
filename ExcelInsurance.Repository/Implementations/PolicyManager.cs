@@ -17,6 +17,11 @@ namespace ExcelInsurance.Repository.Implementations
     {
         IDbConnection dbConnection;
 
+        public bool AddFile(byte[] fileBytes, int policyId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool AddPolicy(Policy policy)
         {
             string query = @"insert into tblPolicy
@@ -98,7 +103,7 @@ namespace ExcelInsurance.Repository.Implementations
             {
                 string query = @"update tblPolicy set
                                     StartDate = @StartDate, 
-                                    EndDate = @EndDate
+                                    EndDate = @EndDate,
                                     Amount = @Amount,
                                     InsurerFirstName = @InsurerFirstName, 
                                     InsurerLastName = @InsurerLastName, 

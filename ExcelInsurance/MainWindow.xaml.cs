@@ -1,5 +1,6 @@
 ﻿using ExcelInsurance.Repository.Implementations;
 using ExcelInsurance.Repository.Interfaces;
+using ExcelInsurance.Repository.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,9 @@ namespace ExcelInsurance
             this.policyDataGrid.Visibility = Visibility.Visible;
             this.policyDataGrid.Visibility = Visibility.Visible;
             this.policyDataGrid.ItemsSource = policyManager.GetPolicies("ALL");
+
+            App.Current.Properties["EDIT_TYPE"] = "";
+            App.Current.Properties["VIEW_TYPE"] = "";
 
         }
 
@@ -116,32 +120,83 @@ namespace ExcelInsurance
 
         private void Btn_ViewPolicy_Click(object sender, RoutedEventArgs e)
         {
-
+            dynamic _sender = sender;
+            ViewWindow viewWindow = new ViewWindow("POLICY", _sender.DataContext);
+            viewWindow.ShowDialog();
         }
 
         private void Btn_EditPolicy_Click(object sender, RoutedEventArgs e)
         {
-
+            dynamic _sender = sender;
+            EditWindow editWindow = new EditWindow("POLICY", _sender.DataContext);
+            editWindow.ShowDialog();
+            string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+            this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter);
         }
 
         private void Btn_DeletePolicy_Click(object sender, RoutedEventArgs e)
         {
+            dynamic _sender = sender;
+            MessageBoxResult confirm = MessageBox.Show("Are you sure, you want to delete?", "Confirm", MessageBoxButton.YesNo);
+            if (confirm == MessageBoxResult.Yes) {
+                //Delete
+                bool status = policyManager.RemovePolicy(_sender.DataContext.Id);
+                if (status)
+                {
+                    string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+                    this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter);
+                    MessageBox.Show("Policy is deleted successfully");
+                    return;
+                }
+                else {
+                    MessageBox.Show("Can delete Policy at this moment. Please try later");
+                    return;
+                }
+                
+            }
+            return;
 
         }
 
-        private void Btn_View_Click(object sender, RoutedEventArgs e)
+        private void Btn_ViewQuote_Click(object sender, RoutedEventArgs e)
         {
-
+            dynamic _sender = sender;
+            ViewWindow viewWindow = new ViewWindow("QUOTE", _sender.DataContext);
+            viewWindow.ShowDialog();
         }
 
         private void Btn_EditQuote_Click(object sender, RoutedEventArgs e)
         {
-
+            dynamic _sender = sender;
+            EditWindow editWindow = new EditWindow("QUOTE", _sender.DataContext);
+            editWindow.ShowDialog();
+            string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+            this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
         }
 
         private void Btn_DeleteQuote_Click(object sender, RoutedEventArgs e)
         {
+            dynamic _sender = sender;
+            MessageBoxResult confirm = MessageBox.Show("Are you sure, you want to delete?", "Confirm", MessageBoxButton.YesNo);
+            if (confirm == MessageBoxResult.Yes)
+            {
+                //Delete
+                bool status = quoteManager.RemoveQuote(_sender.DataContext.Id);
+                if (status)
+                {
+                    string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+                    this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
+                    MessageBox.Show("Quote is deleted successfully");
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Can delete Quote at this moment. Please try later");
+                    return;
+                }
 
+            }
+            return;
         }
     }
 }

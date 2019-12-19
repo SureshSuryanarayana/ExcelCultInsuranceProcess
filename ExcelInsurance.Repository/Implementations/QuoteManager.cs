@@ -93,7 +93,7 @@ namespace ExcelInsurance.Repository.Implementations
             {
                 string query = @"update tblQuote set
                                     StartDate = @StartDate, 
-                                    EndDate = @EndDate
+                                    EndDate = @EndDate,
                                     Amount = @Amount,
                                     InsurerFirstName = @InsurerFirstName, 
                                     InsurerLastName = @InsurerLastName, 

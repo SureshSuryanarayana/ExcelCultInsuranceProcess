@@ -79,17 +79,17 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Policy id" Binding="{Binding Id}" Width="*" />
+                    <DataGridTextColumn Header="Quote id" Binding="{Binding Id}" Width="*" />
                     <DataGridTextColumn Header="Insurer firstname" Binding="{Binding InsurerFirstName}" Width="*" CanUserSort="False"/>
                     <DataGridTextColumn Header="Insurer lastname" Binding="{Binding InsurerLastName}" Width="*" CanUserSort="False" />
-                    <DataGridTextColumn Header="Plicy amount" Binding="{Binding Amount}" Width="*" />
+                    <DataGridTextColumn Header="Quote amount" Binding="{Binding Amount}" Width="*" />
                     <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" Width="*" />
                     <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" Width="*" />
 
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="View" Name="btn_View" Click="Btn_View_Click"/>
+                                <Button Content="View" Name="btn_View" Click="Btn_ViewQuote_Click"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

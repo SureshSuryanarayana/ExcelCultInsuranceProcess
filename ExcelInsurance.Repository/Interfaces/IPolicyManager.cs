@@ -11,5 +11,7 @@ namespace ExcelInsurance.Repository.Interfaces
         bool AddPolicy(Policy policy);
         bool RemovePolicy(int policyId);
         bool UpdatePolicy(Policy policy);
+
+        bool AddFile(byte[] fileBytes, int policyId);
     }
 }
