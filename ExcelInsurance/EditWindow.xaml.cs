@@ -65,10 +65,9 @@ namespace ExcelInsurance
                 date_StartDate.SelectedDate = _policy.StartDate;
                 date_EndDate.SelectedDate = _policy.EndDate;
 
-                cb_PolicyType.SelectedItem = cb_PolicyType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_policy.Type));
-                cb_AddrProofType.SelectedItem = cb_AddrProofType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_policy.AddressProofType));
             }
             else if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_QUOTE"]) {
+                btn_UploadFile.Visibility = Visibility.Hidden;
                 _quote = (Quote)context;
                 txtb_header.Text = "Editing Quote : " + _quote.Id.ToString(); 
                 txt_Firstname.Text = _quote.InsurerFirstName;
@@ -89,6 +88,18 @@ namespace ExcelInsurance
                 date_StartDate.SelectedDate = _quote.StartDate;
                 date_EndDate.SelectedDate = _quote.EndDate;
 
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_POLICY"])
+            {
+                cb_PolicyType.SelectedItem = cb_PolicyType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_policy.Type));
+                cb_AddrProofType.SelectedItem = cb_AddrProofType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_policy.AddressProofType));
+            }
+            else if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_QUOTE"])
+            {
                 cb_PolicyType.SelectedItem = cb_PolicyType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_quote.Type));
                 cb_AddrProofType.SelectedItem = cb_AddrProofType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_quote.AddressProofType));
             }
@@ -226,5 +237,13 @@ namespace ExcelInsurance
                 }
             }
         }
+
+        private void Btn_UploadFile_Click(object sender, RoutedEventArgs e)
+        {
+            FileUploadWindow fileUpload = new FileUploadWindow(_policy.Id);
+            fileUpload.Show();
+        }
+
+        
     }
 }

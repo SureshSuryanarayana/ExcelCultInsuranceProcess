@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExcelInsurance"
         mc:Ignorable="d"
-        Title="Excel Insurance" Height="600" Width="800" WindowStartupLocation="CenterScreen" FontSize="16">
+        Title="Excel Insurance" Height="600" Width="800" WindowStartupLocation="CenterScreen" FontSize="16" Loaded="Window_Loaded">
     <Border Margin="20" Padding="10" BorderBrush="LightGray" BorderThickness="2">
         <ScrollViewer>
             <StackPanel>
@@ -19,6 +19,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
+                            <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
@@ -60,6 +61,7 @@
                         <TextBlock Grid.Row="16" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="17" Grid.Column="0" Text="Policy type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="18" Grid.Column="0" Text="Upload document" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <Button Grid.Row="19" Grid.Column="0" x:Name="btn_UploadFile" Click="Btn_UploadFile_Click" Content="Upload document" HorizontalAlignment="Left" Margin="0 0 0 10"/>
 
                         <TextBox Grid.Row="0" Grid.Column="1" Name="txt_Firstname" Margin="0 0 0 10"/>
                         <TextBox Grid.Row="1" Grid.Column="1" Name="txt_Lastname" Margin="0 0 0 10"/>

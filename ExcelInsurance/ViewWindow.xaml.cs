@@ -1,7 +1,11 @@
-﻿using ExcelInsurance.Repository.Models;
+﻿using ExcelInsurance.Repository.Implementations;
+using ExcelInsurance.Repository.Interfaces;
+using ExcelInsurance.Repository.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +28,7 @@ namespace ExcelInsurance
         private string _viewType;
         private Policy _policy;
         private Quote _quote;
+        private IPolicyManager policyManager;
         public ViewWindow()
         {
             InitializeComponent();
@@ -49,8 +54,7 @@ namespace ExcelInsurance
                 _quote.Type = GetPolicyOrQuoteTypes(_quote.Type);
                 _quote.AddressProofType = _quote.AddressProofType == "PASS" ? "Passport" : "Voter id";
                 this.txtb_header.Text = "Quote ID :" + _quote.Id.ToString();
-                this.txt_Document.Visibility = Visibility.Collapsed;
-                this.txtb_uploadDocs.Visibility = Visibility.Collapsed;
+                this.btn_DownloadDocument.Visibility = Visibility.Collapsed;
                 this.DataContext = _quote;
             }
             else {
@@ -71,5 +75,23 @@ namespace ExcelInsurance
             return "";
         }
 
+        private void Btn_DownloadDocument_Click(object sender, RoutedEventArgs e)
+        {
+            policyManager = new PolicyManager();
+            var bytes = policyManager.GetFile(_policy.Id);
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            saveFileDialog.DefaultExt = "jpeg";
+            saveFileDialog.AddExtension = true;
+            bool result = (bool)saveFileDialog.ShowDialog();
+            if (result) {
+                using (var stream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                }
+                MessageBox.Show("File saved successfully");
+            }
+            
+        }
     }
 }

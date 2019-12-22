@@ -59,7 +59,25 @@
                         <TextBlock Grid.Row="15" Grid.Column="0" Text="Nominee" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="16" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="17" Grid.Column="0" Text="Policy type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="18" Grid.Column="0" Text="Upload document" HorizontalAlignment="Left" Margin="0 0 0 10" x:Name="txtb_uploadDocs"/>
+                        <Button x:Name="btn_DownloadDocument" Margin="5" Content="Download document" Grid.Row="18" Grid.Column="0" Cursor="Hand" Click="Btn_DownloadDocument_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <TextBlock TextDecorations="Underline">
+                                        <ContentPresenter />
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Foreground" Value="Blue" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Foreground" Value="Red" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
 
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{ Binding InsurerFirstName}" Name="txt_Firstname" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{ Binding InsurerLastName}" Name="txt_Lastname" Margin="0 0 0 10"/>
@@ -79,7 +97,6 @@
                         <TextBlock Grid.Row="15" Grid.Column="1" Text="{ Binding Nominee}" Name="txt_Nominee" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="16" Grid.Column="1" Text="{ Binding Relation}" Name="txt_Relation" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="17" Grid.Column="1" Text="{ Binding Type}" x:Name="cb_PolicyType" Margin="0 0 0 10" />
-                        <TextBlock Grid.Row="18" Grid.Column="1" Text="{ Binding DocumentPath}" Name="txt_Document" Margin="0 0 0 10"/>
 
                     </Grid>
                 </Border>

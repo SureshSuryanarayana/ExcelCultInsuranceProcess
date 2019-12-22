@@ -17,9 +17,13 @@ namespace ExcelInsurance.Repository.Implementations
     {
         IDbConnection dbConnection;
 
-        public bool AddFile(byte[] fileBytes, int policyId)
+        public bool AddFile(byte[] fileBytes, string fileName , int policyId)
         {
-            throw new NotImplementedException();
+            string query = @"insert into tblDocuments (Name, Data, PolicyId) values (@fileName, @fileBytes, @policyId)";
+            using (dbConnection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString)) {
+                int result = dbConnection.Execute(query, new { fileName = fileName, fileBytes = fileBytes, policyId = policyId });
+                return result > 0 ? true : false;
+            }
         }
 
         public bool AddPolicy(Policy policy)
@@ -68,6 +72,24 @@ namespace ExcelInsurance.Repository.Implementations
                 int result = dbConnection.Execute(query, policy);
                 return result > 0 ? true : false;
             }
+        }
+
+        public void DeleteFile(int policyId)
+        {
+            using (dbConnection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString))
+            {
+                int result = dbConnection.Execute("delete from tblDocuments where Id=@Id", new { Id = policyId });
+            }
+        }
+
+        public byte[] GetFile(int policyId)
+        {
+            byte[] bytes = new byte[1];
+            using (dbConnection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString)) {
+                var record = dbConnection.QueryFirst("Select Data from tblDocuments where PolicyId = @id", new { id = policyId });
+                bytes = (byte[])record.Data;
+            }
+            return bytes;
         }
 
         public List<Policy> GetPolicies(string filter)
