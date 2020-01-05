@@ -59,7 +59,7 @@
                         <TextBlock Grid.Row="15" Grid.Column="0" Text="Nominee" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="16" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="17" Grid.Column="0" Text="Policy type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <Button x:Name="btn_DownloadDocument" Margin="5" Content="Download document" Grid.Row="18" Grid.Column="0" Cursor="Hand" Click="Btn_DownloadDocument_Click">
+                        <Button x:Name="btn_DownloadDocument" Margin="5" Content="Download files" Grid.Row="18" Grid.Column="0" Cursor="Hand" Click="Btn_DownloadDocument_Click">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <TextBlock TextDecorations="Underline">

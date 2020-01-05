@@ -59,7 +59,6 @@
                         <TextBlock Grid.Row="15" Grid.Column="0" Text="Nominee" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="16" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="17" Grid.Column="0" Text="Policy type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="18" Grid.Column="0" Text="Upload document" HorizontalAlignment="Left" Margin="0 0 0 10"/>
 
                         <TextBox Grid.Row="0" Grid.Column="1" Name="txt_Firstname" Margin="0 0 0 10"/>
                         <TextBox Grid.Row="1" Grid.Column="1" Name="txt_Lastname" Margin="0 0 0 10"/>
@@ -88,8 +87,6 @@
                             <ComboBoxItem Content="Retail" Tag="RETAIL" />
                             <ComboBoxItem Content="Real estate" Tag="REALESTATE" />
                         </ComboBox>
-                        <TextBox Grid.Row="18" Grid.Column="1" Name="txt_Document" Margin="0 0 0 10"/>
-
                     </Grid>
                 </Border>
                 <Button x:Name="btn_SavePolicy" Click="Btn_SavePolicy_Click" Content="Save" Width="100" Padding="5" Margin="0 0 0 10" />

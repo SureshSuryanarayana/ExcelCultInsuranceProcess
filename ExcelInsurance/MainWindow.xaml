@@ -18,6 +18,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Select division" FontWeight="SemiBold" />
                 <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cb_DivisionSelection" SelectionChanged="Cb_DivisionSelection_SelectionChanged">
@@ -34,6 +35,10 @@
                     <ComboBoxItem Content="Policy" Tag="POLICY" IsSelected="True" />
                     <ComboBoxItem Content="Quote" Tag="QUOTE" />
                 </ComboBox>
+
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="txt_SearchBox" Margin="0 5 0 0" ToolTip="Seach by id/firstname/lastname" />
+                <Button Grid.Row="1" Grid.Column="2" Content="Search" Margin="0 5 0 0" x:Name="btn_Search" Click="Btn_Search_Click"/>
+                
             </Grid>
             <DataGrid x:Name="policyDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="0 0 0 10">
                 <DataGrid.Resources>

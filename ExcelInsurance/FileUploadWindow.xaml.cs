@@ -3,6 +3,7 @@ using ExcelInsurance.Repository.Interfaces;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -70,13 +71,14 @@ namespace ExcelInsurance
         private void Btn_SelectFile_Click(object sender, RoutedEventArgs e)
         {
             this.dialog = new OpenFileDialog();
-            dialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            //dialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             bool result = (bool)dialog.ShowDialog();
             if (result)
             {
                 var fileInfo = new FileInfo(dialog.FileName);
                 double fileSize = fileInfo.Length / 1024;
-                if (fileSize > 2048)
+                int maxSize = Convert.ToInt32(ConfigurationManager.AppSettings["MAX_FILE_SIZE"].ToString());
+                if (fileSize > maxSize)
                 {
                     MessageBox.Show("File size exceeds limit.");
                     dialog = null;

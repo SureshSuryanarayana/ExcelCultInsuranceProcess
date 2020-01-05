@@ -37,7 +37,14 @@ namespace ExcelInsurance
 
             this.policyDataGrid.Visibility = Visibility.Visible;
             this.policyDataGrid.Visibility = Visibility.Visible;
-            this.policyDataGrid.ItemsSource = policyManager.GetPolicies("ALL");
+            try
+            {
+                this.policyDataGrid.ItemsSource = policyManager.GetPolicies("ALL");
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+            
 
             App.Current.Properties["EDIT_TYPE"] = "";
             App.Current.Properties["VIEW_TYPE"] = "";
@@ -48,28 +55,34 @@ namespace ExcelInsurance
         {
             if (!this.IsLoaded)
                 return;
-            string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
-
-            if (((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString() == "POLICY")
+            try
             {
+                string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
 
-                this.btn_AddQuote.Visibility = Visibility.Collapsed;
-                this.quoteDataGrid.Visibility = Visibility.Collapsed;
-                this.quoteDataGrid.ItemsSource = null;
+                if (((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString() == "POLICY")
+                {
 
-                this.btn_AddPolicy.Visibility = Visibility.Visible;
-                this.policyDataGrid.Visibility = Visibility.Visible;
-                this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter);
+                    this.btn_AddQuote.Visibility = Visibility.Collapsed;
+                    this.quoteDataGrid.Visibility = Visibility.Collapsed;
+                    this.quoteDataGrid.ItemsSource = null;
+
+                    this.btn_AddPolicy.Visibility = Visibility.Visible;
+                    this.policyDataGrid.Visibility = Visibility.Visible;
+                    this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter);
+                }
+                else if (((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString() == "QUOTE")
+                {
+                    this.policyDataGrid.Visibility = Visibility.Collapsed;
+                    this.btn_AddPolicy.Visibility = Visibility.Collapsed;
+                    this.policyDataGrid.ItemsSource = null;
+
+                    this.quoteDataGrid.Visibility = Visibility.Visible;
+                    this.btn_AddQuote.Visibility = Visibility.Visible;
+                    this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
+                }
             }
-            else if (((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString() == "QUOTE")
-            {
-                this.policyDataGrid.Visibility = Visibility.Collapsed;
-                this.btn_AddPolicy.Visibility = Visibility.Collapsed;
-                this.policyDataGrid.ItemsSource = null;
-
-                this.quoteDataGrid.Visibility = Visibility.Visible;
-                this.btn_AddQuote.Visibility = Visibility.Visible;
-                this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -77,28 +90,34 @@ namespace ExcelInsurance
         {
             if (!this.IsLoaded)
                 return;
-            string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
-
-            if (((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString() == "POLICY")
+            try
             {
-                
-                this.btn_AddQuote.Visibility = Visibility.Collapsed;
-                this.quoteDataGrid.Visibility = Visibility.Collapsed;
-                this.quoteDataGrid.ItemsSource = null;
+                string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
 
-                this.btn_AddPolicy.Visibility = Visibility.Visible;
-                this.policyDataGrid.Visibility = Visibility.Visible;
-                this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter);
+                if (((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString() == "POLICY")
+                {
+
+                    this.btn_AddQuote.Visibility = Visibility.Collapsed;
+                    this.quoteDataGrid.Visibility = Visibility.Collapsed;
+                    this.quoteDataGrid.ItemsSource = null;
+
+                    this.btn_AddPolicy.Visibility = Visibility.Visible;
+                    this.policyDataGrid.Visibility = Visibility.Visible;
+                    this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter);
+                }
+                else if (((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString() == "QUOTE")
+                {
+                    this.policyDataGrid.Visibility = Visibility.Collapsed;
+                    this.btn_AddPolicy.Visibility = Visibility.Collapsed;
+                    this.policyDataGrid.ItemsSource = null;
+
+                    this.quoteDataGrid.Visibility = Visibility.Visible;
+                    this.btn_AddQuote.Visibility = Visibility.Visible;
+                    this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
+                }
             }
-            else if (((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString() == "QUOTE")
-            {
-                this.policyDataGrid.Visibility = Visibility.Collapsed;
-                this.btn_AddPolicy.Visibility = Visibility.Collapsed;
-                this.policyDataGrid.ItemsSource = null;
-
-                this.quoteDataGrid.Visibility = Visibility.Visible;
-                this.btn_AddQuote.Visibility = Visibility.Visible;
-                this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -197,6 +216,19 @@ namespace ExcelInsurance
 
             }
             return;
+        }
+
+        private void Btn_Search_Click(object sender, RoutedEventArgs e)
+        {
+            if (txt_SearchBox.Text.Length > 0)
+            {
+                string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+                this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter).Where(x => (x.InsurerFirstName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.InsurerLastName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.Id.ToString().ToLower().Contains(txt_SearchBox.Text.ToLower())));
+            }
+            else {
+                string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+                this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter);
+            }
         }
     }
 }

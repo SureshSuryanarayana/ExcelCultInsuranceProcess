@@ -39,26 +39,33 @@ namespace ExcelInsurance
 
             _viewType = type;
 
-            if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_POLICY"])
+            try
             {
-                _policy = (Policy)context;
-                _policy.Type = GetPolicyOrQuoteTypes(_policy.Type);
-                _policy.AddressProofType = _policy.AddressProofType == "PASS" ? "Passport" : "Voter id";
-                this.txtb_header.Text = "Policy ID :" + _policy.Id.ToString();
-                this.DataContext = _policy;
+                if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_POLICY"])
+                {
+                    _policy = (Policy)context;
+                    _policy.Type = GetPolicyOrQuoteTypes(_policy.Type);
+                    _policy.AddressProofType = _policy.AddressProofType == "PASS" ? "Passport" : "Voter id";
+                    this.txtb_header.Text = "Policy ID :" + _policy.Id.ToString();
+                    this.DataContext = _policy;
 
-            }
-            else if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_QUOTE"])
-            {
-                _quote = (Quote)context;
-                _quote.Type = GetPolicyOrQuoteTypes(_quote.Type);
-                _quote.AddressProofType = _quote.AddressProofType == "PASS" ? "Passport" : "Voter id";
-                this.txtb_header.Text = "Quote ID :" + _quote.Id.ToString();
-                this.btn_DownloadDocument.Visibility = Visibility.Collapsed;
-                this.DataContext = _quote;
-            }
-            else {
+                }
+                else if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_QUOTE"])
+                {
+                    _quote = (Quote)context;
+                    _quote.Type = GetPolicyOrQuoteTypes(_quote.Type);
+                    _quote.AddressProofType = _quote.AddressProofType == "PASS" ? "Passport" : "Voter id";
+                    this.txtb_header.Text = "Quote ID :" + _quote.Id.ToString();
+                    this.btn_DownloadDocument.Visibility = Visibility.Collapsed;
+                    this.DataContext = _quote;
+                }
+                else
+                {
 
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
         }
         private string GetPolicyOrQuoteTypes(string type) {
@@ -78,18 +85,30 @@ namespace ExcelInsurance
         private void Btn_DownloadDocument_Click(object sender, RoutedEventArgs e)
         {
             policyManager = new PolicyManager();
-            var bytes = policyManager.GetFile(_policy.Id);
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
-            saveFileDialog.DefaultExt = "jpeg";
-            saveFileDialog.AddExtension = true;
-            bool result = (bool)saveFileDialog.ShowDialog();
-            if (result) {
-                using (var stream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+            try
+            {
+                var bytes = policyManager.GetFile(_policy.Id);
+                if (bytes.Length == 0)
                 {
-                    stream.Write(bytes, 0, bytes.Length);
+                    MessageBox.Show("There is no file available to download.");
+                    return;
                 }
-                MessageBox.Show("File saved successfully");
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                //saveFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+                //saveFileDialog.DefaultExt = "jpeg";
+                //saveFileDialog.AddExtension = true;
+                bool result = (bool)saveFileDialog.ShowDialog();
+                if (result)
+                {
+                    using (var stream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                    {
+                        stream.Write(bytes, 0, bytes.Length);
+                    }
+                    MessageBox.Show("File saved successfully");
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
             
         }

@@ -109,7 +109,7 @@ namespace ExcelInsurance.Repository.Implementations
                                     Phone = @Phone,
                                     Nominee = @Nominee,
                                     Relation = @Relation,
-                                    Type = @Type,
+                                    Type = @Type
                                     where Id=@Id";
                 int result = dbConnection.Execute(query, quote);
                 return result > 0 ? true : false;
