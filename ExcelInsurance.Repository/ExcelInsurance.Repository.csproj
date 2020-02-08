@@ -51,11 +51,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\AuthManager.cs" />
+    <Compile Include="Implementations\CountryManager.cs" />
     <Compile Include="Implementations\PolicyManager.cs" />
     <Compile Include="Implementations\QuoteManager.cs" />
     <Compile Include="Interfaces\IAuthManager.cs" />
+    <Compile Include="Interfaces\ICountryManager.cs" />
     <Compile Include="Interfaces\IPolicyManager.cs" />
     <Compile Include="Interfaces\IQuoteManager.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Policy.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

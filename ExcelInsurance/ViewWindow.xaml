@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExcelInsurance"
         mc:Ignorable="d"
-        Title="Excel Insurance" Height="600" Width="800" WindowStartupLocation="CenterScreen" FontSize="16">
+        Title="ExcelCult" Height="600" Width="800" WindowStartupLocation="CenterScreen" FontSize="16">
     <Border Margin="20" Padding="10" BorderBrush="LightGray" BorderThickness="2">
         <ScrollViewer>
             <StackPanel>
@@ -37,29 +37,28 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
-                            <RowDefinition />
 
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Insurer firstname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Insurer lastname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Middle name" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Email id" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Total amount" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="5" Grid.Column="0" Text="Start date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="6" Grid.Column="0" Text="End date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Insurer Firstname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Insurer Lastname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Gender" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Email Id" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Sum Amount" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="Start Date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="End Date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="7" Grid.Column="0" Text="Address" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="8" Grid.Column="0" Text="State" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="9" Grid.Column="0" Text="Country" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="10" Grid.Column="0" Text="Pin code" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="11" Grid.Column="0" Text="Agent name" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="12" Grid.Column="0" Text="Address proof type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="13" Grid.Column="0" Text="Account number" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="14" Grid.Column="0" Text="Phone number" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="15" Grid.Column="0" Text="Nominee" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="16" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="17" Grid.Column="0" Text="Policy type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <Button x:Name="btn_DownloadDocument" Margin="5" Content="Download files" Grid.Row="18" Grid.Column="0" Cursor="Hand" Click="Btn_DownloadDocument_Click">
+                        <TextBlock Grid.Row="10" Grid.Column="0" Text="Pin Code" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="11" Grid.Column="0" Text="Agent Name" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="12" Grid.Column="0" Text="Address Proof Type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <!--<TextBlock Grid.Row="13" Grid.Column="0" Text="Account number" HorizontalAlignment="Left" Margin="0 0 0 10"/>-->
+                        <TextBlock Grid.Row="13" Grid.Column="0" Text="Phone Number" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="14" Grid.Column="0" Text="Nominee" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="15" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="16" Grid.Column="0" Text="Department" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <Button x:Name="btn_DownloadDocument" Margin="5" Content="Download Files" Grid.Row="17" Grid.Column="0" Cursor="Hand" Click="Btn_DownloadDocument_Click">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <TextBlock TextDecorations="Underline">
@@ -81,7 +80,7 @@
 
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{ Binding InsurerFirstName}" Name="txt_Firstname" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{ Binding InsurerLastName}" Name="txt_Lastname" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{ Binding InsurerMiddleName}" Name="txt_Middlename" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Name="txt_Gender" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="3" Grid.Column="1" Text="{ Binding Email}" Name="txt_Email" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="4" Grid.Column="1" Text="{ Binding Amount}" Name="txt_TotalAmount" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="5" Grid.Column="1" Text="{ Binding StartDate}" Name="date_StartDate" Margin="0 0 0 10"/>
@@ -92,14 +91,16 @@
                         <TextBlock Grid.Row="10" Grid.Column="1" Text="{ Binding Pin}" Name="txt_Pincode" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="11" Grid.Column="1" Text="{ Binding AgentName}" Name="txt_AgentName" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="12" Grid.Column="1" Text="{ Binding AddressProofType}" Name="cb_AddrProofType" Margin="0 0 0 10" />
-                        <TextBlock Grid.Row="13" Grid.Column="1" Text="{ Binding BankAccountNumber}" Name="txt_AccountNumber" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="14" Grid.Column="1" Text="{ Binding Phone}" Name="txt_PhoneNumber" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="15" Grid.Column="1" Text="{ Binding Nominee}" Name="txt_Nominee" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="16" Grid.Column="1" Text="{ Binding Relation}" Name="txt_Relation" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="17" Grid.Column="1" Text="{ Binding Type}" x:Name="cb_PolicyType" Margin="0 0 0 10" />
-
+                        <!--<TextBlock Grid.Row="13" Grid.Column="1" Text="{ Binding BankAccountNumber}" Name="txt_AccountNumber" Margin="0 0 0 10"/>-->
+                        <TextBlock Grid.Row="13" Grid.Column="1" Text="{ Binding Phone}" Name="txt_PhoneNumber" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="14" Grid.Column="1" Text="{ Binding Nominee}" Name="txt_Nominee" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="15" Grid.Column="1" Text="{ Binding Relation}" Name="txt_Relation" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="16" Grid.Column="1" Text="{ Binding Type}" x:Name="cb_PolicyType" Margin="0 0 0 10" />
+                        
                     </Grid>
+                    
                 </Border>
+                <Button x:Name="btn_Close" Click="Btn_Close_Click" Content="Close" Width="100" Margin="0 0 0 10"/>
             </StackPanel>
         </ScrollViewer>
     </Border>

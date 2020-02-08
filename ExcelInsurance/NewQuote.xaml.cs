@@ -4,6 +4,7 @@ using ExcelInsurance.Repository.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,11 +25,16 @@ namespace ExcelInsurance
     {
         private Quote quote;
         private IQuoteManager quoteManager;
+        private ICountryManager countryManager;
+        public List<Country> countriesList { get; set; }
         public NewQuote()
         {
             InitializeComponent();
             quote = new Quote();
             quoteManager = new QuoteManager();
+            countryManager = new CountryManager();
+            countriesList = countryManager.GetCountries();
+            DataContext = this;
         }
 
         private void Btn_SaveQuote_Click(object sender, RoutedEventArgs e)
@@ -67,18 +73,18 @@ namespace ExcelInsurance
                     validationCheck = false;
                 }
                 else { this.txt_State.BorderBrush = Brushes.Black; }
-                if (String.IsNullOrEmpty(this.txt_Country.Text))
+                if (this.cb_Country.SelectedItem == null)
                 {
-                    this.txt_Country.BorderBrush = Brushes.Red;
+                    this.cb_Country.BorderBrush = Brushes.Red;
                     validationCheck = false;
                 }
-                else { this.txt_Country.BorderBrush = Brushes.Black; }
-                if (String.IsNullOrEmpty(this.txt_AccountNumber.Text))
-                {
-                    this.txt_AccountNumber.BorderBrush = Brushes.Red;
-                    validationCheck = false;
-                }
-                else { this.txt_AccountNumber.BorderBrush = Brushes.Black; }
+                else { this.cb_Country.BorderBrush = Brushes.Black; }
+                //if (String.IsNullOrEmpty(this.txt_AccountNumber.Text))
+                //{
+                //    this.txt_AccountNumber.BorderBrush = Brushes.Red;
+                //    validationCheck = false;
+                //}
+                //else { this.txt_AccountNumber.BorderBrush = Brushes.Black; }
                 if (String.IsNullOrEmpty(this.txt_Email.Text))
                 {
                     this.txt_Email.BorderBrush = Brushes.Red;
@@ -132,33 +138,54 @@ namespace ExcelInsurance
                         return;
                     }
 
-                    double account;
-                    if (!double.TryParse(this.txt_AccountNumber.Text, out account))
-                    {
-                        this.txt_AccountNumber.BorderBrush = Brushes.Red;
-                        MessageBox.Show("Please enter valid account number");
-                        return;
-                    }
+                    //double account;
+                    //if (!double.TryParse(this.txt_AccountNumber.Text, out account))
+                    //{
+                    //    this.txt_AccountNumber.BorderBrush = Brushes.Red;
+                    //    MessageBox.Show("Please enter valid account number");
+                    //    return;
+                    //}
 
                     double phone;
-                    if (!double.TryParse(this.txt_PhoneNumber.Text, out phone))
+                    if (!double.TryParse(this.txt_PhoneNumber.Text, out phone) || this.txt_PhoneNumber.Text.Length != 10)
                     {
                         this.txt_PhoneNumber.BorderBrush = Brushes.Red;
                         MessageBox.Show("Please enter valid phone number");
                         return;
                     }
 
+                    try
+                    {
+                        MailAddress mail = new MailAddress(this.txt_Email.Text);
+                    }
+                    catch (FormatException ex)
+                    {
+                        this.txt_Email.BorderBrush = Brushes.Red;
+                        MessageBox.Show("Please enter valid Email");
+                        return;
+                    }
+
+                    if (!(rbm.IsChecked == true || rbf.IsChecked == true || rbo.IsChecked == true))
+                    {
+                        MessageBox.Show("Please select gender");
+                        return;
+                    }
+
+                    if (rbm.IsChecked == true) { quote.Gender = "MALE"; }
+                    else if (rbf.IsChecked == true) { quote.Gender = "FEMALE"; }
+                    else quote.Gender = "OTHERS";
+
                     quote.InsurerFirstName = this.txt_Firstname.Text;
                     quote.InsurerLastName = this.txt_Lastname.Text;
-                    quote.InsurerMiddleName = this.txt_Middlename.Text;
+                    //quote.InsurerMiddleName = this.txt_Middlename.Text;
                     quote.Email = this.txt_Email.Text;
                     quote.Phone = this.txt_PhoneNumber.Text;
                     quote.Address = this.txt_Address.Text;
                     quote.State = this.txt_State.Text;
-                    quote.Country = this.txt_Country.Text;
+                    quote.Country = ((dynamic)this.cb_Country.SelectedItem).Code;
                     quote.StartDate = this.date_StartDate.SelectedDate;
                     quote.EndDate = this.date_EndDate.SelectedDate;
-                    quote.BankAccountNumber = this.txt_AccountNumber.Text;
+                    //quote.BankAccountNumber = this.txt_AccountNumber.Text;
                     quote.AddressProofType = ((ComboBoxItem)(this.cb_AddrProofType.SelectedItem)).Tag.ToString();
                     quote.Amount = Convert.ToDouble(this.txt_TotalAmount.Text);
                     quote.Relation = this.txt_Relation.Text;
@@ -167,10 +194,13 @@ namespace ExcelInsurance
                     quote.AgentName = this.txt_AgentName.Text;
                     quote.Type = ((ComboBoxItem)(this.cb_QuoteType.SelectedItem)).Tag.ToString();
 
-                    if (quoteManager.AddQuote(quote))
+                    int _quoteId = quoteManager.AddQuote(quote);
+                    if (_quoteId > 0)
                     {
-                        MessageBox.Show("Quote added successfully.");
-                        this.Close();
+                        MessageBox.Show("Policy added successfully.");
+                        this.btn_SaveQuote.IsEnabled = false;
+                        this.btn_CancelQuote.Content = "Close";
+                        this.txt_title.Text = "New policy id : " + _quoteId.ToString();
                     }
                     else
                     {
@@ -187,6 +217,11 @@ namespace ExcelInsurance
             }
 
             
+        }
+
+        private void Btn_CancelQuote_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

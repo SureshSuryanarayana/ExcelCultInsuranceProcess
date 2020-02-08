@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExcelInsurance"
         mc:Ignorable="d"
-        Title="Excel Insurance" Height="700" Width="1000" WindowStartupLocation="CenterScreen" FontSize="16">
+        Title="ExcelCult" Height="700" Width="1000" WindowStartupLocation="CenterScreen" FontSize="16">
     <Border Margin="20" Padding="10" BorderBrush="LightGray" BorderThickness="2">
         <StackPanel>
             <Grid Margin="0 0 0 10">
@@ -20,7 +20,7 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Select division" FontWeight="SemiBold" />
+                <Label Grid.Row="0" Grid.Column="0" Content="Select Division" FontWeight="SemiBold" />
                 <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cb_DivisionSelection" SelectionChanged="Cb_DivisionSelection_SelectionChanged">
                     <ComboBoxItem Content="---All---" Tag="ALL" IsSelected="True" />
                     <ComboBoxItem Content="Health" Tag="HEALTH" />
@@ -30,13 +30,13 @@
                     <ComboBoxItem Content="Real estate" Tag="REALESTATE" />
                 </ComboBox>
 
-                <Label Grid.Row="0" Grid.Column="3" Content="Data to view" FontWeight="SemiBold" />
+                <Label Grid.Row="0" Grid.Column="3" Content="Data To View" FontWeight="SemiBold" />
                 <ComboBox Grid.Row="0" Grid.Column="4" x:Name="cb_DataToView" SelectionChanged="Cb_DataToView_SelectionChanged">
                     <ComboBoxItem Content="Policy" Tag="POLICY" IsSelected="True" />
                     <ComboBoxItem Content="Quote" Tag="QUOTE" />
                 </ComboBox>
 
-                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="txt_SearchBox" Margin="0 5 0 0" ToolTip="Seach by id/firstname/lastname" />
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="txt_SearchBox" TextChanged="Txt_SearchBox_TextChanged" Margin="0 5 0 0" ToolTip="Seach by id/firstname/lastname" />
                 <Button Grid.Row="1" Grid.Column="2" Content="Search" Margin="0 5 0 0" x:Name="btn_Search" Click="Btn_Search_Click"/>
                 
             </Grid>
@@ -47,12 +47,12 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Policy id" Binding="{Binding Id}" Width="*" />
-                    <DataGridTextColumn Header="Insurer firstname" Binding="{Binding InsurerFirstName}" Width="*" CanUserSort="False"/>
-                    <DataGridTextColumn Header="Insurer lastname" Binding="{Binding InsurerLastName}" Width="*" CanUserSort="False" />
-                    <DataGridTextColumn Header="Plicy amount" Binding="{Binding Amount}" Width="*" />
-                    <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" Width="*" />
-                    <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" Width="*" />
+                    <DataGridTextColumn Header="Policy Id" Binding="{Binding Id}" Width="*" />
+                    <DataGridTextColumn Header="Insurer Firstname" Binding="{Binding InsurerFirstName}" Width="*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Insurer Lastname" Binding="{Binding InsurerLastName}" Width="*" CanUserSort="False" />
+                    <DataGridTextColumn Header="Plicy Amount" Binding="{Binding Amount}" Width="*" />
+                    <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate, StringFormat=dd-MM-yyyy}" Width="*" />
+                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDate, StringFormat=dd-MM-yyyy}" Width="*" />
 
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -84,12 +84,12 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Quote id" Binding="{Binding Id}" Width="*" />
-                    <DataGridTextColumn Header="Insurer firstname" Binding="{Binding InsurerFirstName}" Width="*" CanUserSort="False"/>
-                    <DataGridTextColumn Header="Insurer lastname" Binding="{Binding InsurerLastName}" Width="*" CanUserSort="False" />
-                    <DataGridTextColumn Header="Quote amount" Binding="{Binding Amount}" Width="*" />
-                    <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" Width="*" />
-                    <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" Width="*" />
+                    <DataGridTextColumn Header="Quote Id" Binding="{Binding Id}" Width="*" />
+                    <DataGridTextColumn Header="Insurer Firstname" Binding="{Binding InsurerFirstName}" Width="*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Insurer Lastname" Binding="{Binding InsurerLastName}" Width="*" CanUserSort="False" />
+                    <DataGridTextColumn Header="Quote Amount" Binding="{Binding Amount}" Width="*" />
+                    <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate, StringFormat=dd-MM-yyyy}" Width="*" />
+                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDate, StringFormat=dd-MM-yyyy}" Width="*" />
 
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>

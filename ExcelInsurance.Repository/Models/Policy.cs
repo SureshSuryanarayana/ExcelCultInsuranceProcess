@@ -28,5 +28,6 @@ namespace ExcelInsurance.Repository.Models
         public string Nominee { get; set; }
         public string Relation { get; set; }
         public string DocumentPath { get; set; }
+        public string Gender { get; set; }
     }
 }

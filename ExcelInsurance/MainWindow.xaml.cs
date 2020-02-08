@@ -140,14 +140,14 @@ namespace ExcelInsurance
         private void Btn_ViewPolicy_Click(object sender, RoutedEventArgs e)
         {
             dynamic _sender = sender;
-            ViewWindow viewWindow = new ViewWindow("POLICY", _sender.DataContext);
+            ViewWindow viewWindow = new ViewWindow("POLICY", _sender.DataContext.Id);
             viewWindow.ShowDialog();
         }
 
         private void Btn_EditPolicy_Click(object sender, RoutedEventArgs e)
         {
             dynamic _sender = sender;
-            EditWindow editWindow = new EditWindow("POLICY", _sender.DataContext);
+            EditWindow editWindow = new EditWindow("POLICY", _sender.DataContext.Id);
             editWindow.ShowDialog();
             string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
             this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter);
@@ -180,14 +180,14 @@ namespace ExcelInsurance
         private void Btn_ViewQuote_Click(object sender, RoutedEventArgs e)
         {
             dynamic _sender = sender;
-            ViewWindow viewWindow = new ViewWindow("QUOTE", _sender.DataContext);
+            ViewWindow viewWindow = new ViewWindow("QUOTE", _sender.DataContext.Id);
             viewWindow.ShowDialog();
         }
 
         private void Btn_EditQuote_Click(object sender, RoutedEventArgs e)
         {
             dynamic _sender = sender;
-            EditWindow editWindow = new EditWindow("QUOTE", _sender.DataContext);
+            EditWindow editWindow = new EditWindow("QUOTE", _sender.DataContext.Id);
             editWindow.ShowDialog();
             string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
             this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter);
@@ -220,15 +220,26 @@ namespace ExcelInsurance
 
         private void Btn_Search_Click(object sender, RoutedEventArgs e)
         {
-            if (txt_SearchBox.Text.Length > 0)
-            {
-                string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+            
+            string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+            string viewType = ((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString();
+            if(viewType == "POLICY")
                 this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter).Where(x => (x.InsurerFirstName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.InsurerLastName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.Id.ToString().ToLower().Contains(txt_SearchBox.Text.ToLower())));
-            }
-            else {
-                string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
-                this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter);
-            }
+            else
+                this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter).Where(x => (x.InsurerFirstName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.InsurerLastName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.Id.ToString().ToLower().Contains(txt_SearchBox.Text.ToLower())));
+            
+            
+        }
+
+        private void Txt_SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string filter = ((ComboBoxItem)(this.cb_DivisionSelection.SelectedItem)).Tag.ToString();
+            string viewType = ((ComboBoxItem)(this.cb_DataToView.SelectedItem)).Tag.ToString();
+            if (viewType == "POLICY")
+                this.policyDataGrid.ItemsSource = policyManager.GetPolicies(filter).Where(x => (x.InsurerFirstName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.InsurerLastName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.Id.ToString().ToLower().Contains(txt_SearchBox.Text.ToLower())));
+            else
+                this.quoteDataGrid.ItemsSource = quoteManager.GetQuotes(filter).Where(x => (x.InsurerFirstName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.InsurerLastName.ToLower().Contains(txt_SearchBox.Text.ToLower()) || x.Id.ToString().ToLower().Contains(txt_SearchBox.Text.ToLower())));
+
         }
     }
 }

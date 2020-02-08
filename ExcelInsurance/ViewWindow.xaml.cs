@@ -29,6 +29,9 @@ namespace ExcelInsurance
         private Policy _policy;
         private Quote _quote;
         private IPolicyManager policyManager;
+        private IQuoteManager quoteManager;
+        private ICountryManager countryManager;
+
         public ViewWindow()
         {
             InitializeComponent();
@@ -36,27 +39,43 @@ namespace ExcelInsurance
         public ViewWindow(string type, object context)
         {
             InitializeComponent();
-
+            countryManager = new CountryManager();
+            policyManager = new PolicyManager();
+            quoteManager = new QuoteManager();
             _viewType = type;
 
             try
             {
                 if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_POLICY"])
                 {
-                    _policy = (Policy)context;
+                    int policyId = (int)context;
+                    _policy = policyManager.GetPolicy(policyId);
+                    _policy.Country = countryManager.GetCountries().Find(x => x.Code == _policy.Country).Description;
                     _policy.Type = GetPolicyOrQuoteTypes(_policy.Type);
                     _policy.AddressProofType = _policy.AddressProofType == "PASS" ? "Passport" : "Voter id";
                     this.txtb_header.Text = "Policy ID :" + _policy.Id.ToString();
+
+                    if (_policy.Gender == "MALE") { txt_Gender.Text = "MALE"; }
+                    else if (_policy.Gender == "FEMALE") { txt_Gender.Text = "FEMALE"; }
+                    else txt_Gender.Text = "OTHERS";
+
                     this.DataContext = _policy;
 
                 }
                 else if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_QUOTE"])
                 {
-                    _quote = (Quote)context;
+                    int quoteId = (int)context;
+                    _quote = quoteManager.GetQuote(quoteId);
+                    _quote.Country = countryManager.GetCountries().Find(x => x.Code == _quote.Country).Description;
                     _quote.Type = GetPolicyOrQuoteTypes(_quote.Type);
                     _quote.AddressProofType = _quote.AddressProofType == "PASS" ? "Passport" : "Voter id";
                     this.txtb_header.Text = "Quote ID :" + _quote.Id.ToString();
                     this.btn_DownloadDocument.Visibility = Visibility.Collapsed;
+
+                    if (_quote.Gender == "MALE") { txt_Gender.Text = "MALE"; }
+                    else if (_quote.Gender == "FEMALE") { txt_Gender.Text = "FEMALE"; }
+                    else txt_Gender.Text = "OTHERS";
+
                     this.DataContext = _quote;
                 }
                 else
@@ -84,7 +103,7 @@ namespace ExcelInsurance
 
         private void Btn_DownloadDocument_Click(object sender, RoutedEventArgs e)
         {
-            policyManager = new PolicyManager();
+            
             try
             {
                 var bytes = policyManager.GetFile(_policy.Id);
@@ -111,6 +130,11 @@ namespace ExcelInsurance
                 MessageBox.Show(ex.Message);
             }
             
+        }
+
+        private void Btn_Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExcelInsurance"
         mc:Ignorable="d"
-        Title="File upload" Height="250" Width="700" FontSize="16" WindowStartupLocation="CenterScreen">
+        Title="ExcelCult" Height="250" Width="700" FontSize="16" WindowStartupLocation="CenterScreen">
     <Grid>
         <Border BorderThickness="2" BorderBrush="Black" CornerRadius="10" Margin="5" Padding="30">
             <StackPanel>

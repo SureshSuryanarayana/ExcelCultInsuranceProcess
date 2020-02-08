@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExcelInsurance"
         mc:Ignorable="d"
-        Title="Excel Insurance" Height="600" Width="800" WindowStartupLocation="CenterScreen" FontSize="16">
+        Title="ExcelCult" Height="600" Width="800" WindowStartupLocation="CenterScreen" FontSize="16">
     <ScrollViewer>
         <StackPanel>
-            <TextBlock Text="Add new Quote"  FontWeight="DemiBold" Margin="20 10 0 0"/>
+            <TextBlock x:Name="txt_title" Text="Add new quote"  FontWeight="DemiBold" Margin="20 10 0 0"/>
             <Border Margin="50 30" BorderThickness="2" BorderBrush="LightGray" CornerRadius="5">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
@@ -35,50 +35,54 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
-                        <RowDefinition />
 
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Insurer firstname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Insurer lastname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Middle name" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Email id" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Total amount" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Start date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="6" Grid.Column="0" Text="End date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Insurer Firstname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Insurer Lastname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Gender" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Email Id" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Sum Amount" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Start Date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="End Date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                     <TextBlock Grid.Row="7" Grid.Column="0" Text="Address" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                     <TextBlock Grid.Row="8" Grid.Column="0" Text="State" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                     <TextBlock Grid.Row="9" Grid.Column="0" Text="Country" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="10" Grid.Column="0" Text="Pin code" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="11" Grid.Column="0" Text="Agent name" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="12" Grid.Column="0" Text="Address proof type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="13" Grid.Column="0" Text="Account number" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="14" Grid.Column="0" Text="Phone number" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="15" Grid.Column="0" Text="Nominee" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="16" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                    <TextBlock Grid.Row="17" Grid.Column="0" Text="Quote type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="10" Grid.Column="0" Text="Pin Code" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="11" Grid.Column="0" Text="Agent Name" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="12" Grid.Column="0" Text="Address Proof Type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <!--<TextBlock Grid.Row="13" Grid.Column="0" Text="Account number" HorizontalAlignment="Left" Margin="0 0 0 10"/>-->
+                    <TextBlock Grid.Row="13" Grid.Column="0" Text="Phone Number" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="14" Grid.Column="0" Text="Nominee" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="15" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                    <TextBlock Grid.Row="16" Grid.Column="0" Text="Department" HorizontalAlignment="Left" Margin="0 0 0 10"/>
 
                     <TextBox Grid.Row="0" Grid.Column="1" Name="txt_Firstname" Margin="0 0 0 10"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Name="txt_Lastname" Margin="0 0 0 10"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Name="txt_Middlename" Margin="0 0 0 10"/>
+                    <WrapPanel Grid.Row="2" Grid.Column="1" Margin="0 0 0 10">
+                        <RadioButton Name="rbm" Content="Male" Margin="15 0 0 0"/>
+                        <RadioButton Name="rbf" Content="Female"  Margin="15 0 0 0"/>
+                        <RadioButton Name="rbo" Content="Others"  Margin="15 0 0 0"/>
+                    </WrapPanel>
                     <TextBox Grid.Row="3" Grid.Column="1" Name="txt_Email" Margin="0 0 0 10"/>
                     <TextBox Grid.Row="4" Grid.Column="1" Name="txt_TotalAmount" Margin="0 0 0 10"/>
-                    <DatePicker Grid.Row="5" Grid.Column="1" Name="date_StartDate" SelectedDateFormat="Long" Margin="0 0 0 10"/>
-                    <DatePicker Grid.Row="6" Grid.Column="1" Name="date_EndDate" SelectedDateFormat="Long" Margin="0 0 0 10"/>
+                    <DatePicker Grid.Row="5" Grid.Column="1" Name="date_StartDate" SelectedDateFormat="Short" Margin="0 0 0 10"/>
+                    <DatePicker Grid.Row="6" Grid.Column="1" Name="date_EndDate" SelectedDateFormat="Short" Margin="0 0 0 10"/>
                     <TextBox Grid.Row="7" Grid.Column="1" Name="txt_Address" TextWrapping="Wrap" AcceptsReturn="True" Margin="0 0 0 10"/>
                     <TextBox Grid.Row="8" Grid.Column="1" Name="txt_State" Margin="0 0 0 10"/>
-                    <TextBox Grid.Row="9" Grid.Column="1" Name="txt_Country" Margin="0 0 0 10"/>
+                    <!--<TextBox Grid.Row="8" Grid.Column="1" Name="txt_Country" Margin="0 0 0 10"/>-->
+                    <ComboBox Name="cb_Country" Grid.Row="9" Grid.Column="1"  Margin="0 0 0 10" ItemsSource="{Binding countriesList}" DisplayMemberPath="Description" SelectedValuePath="Code"/>
                     <TextBox Grid.Row="10" Grid.Column="1" Name="txt_Pincode" Margin="0 0 0 10"/>
                     <TextBox Grid.Row="11" Grid.Column="1" Name="txt_AgentName" Margin="0 0 0 10"/>
                     <ComboBox Grid.Row="12" Grid.Column="1" Name="cb_AddrProofType" Margin="0 0 0 10">
                         <ComboBoxItem Content="Passport" Tag="PASS" />
                         <ComboBoxItem Content="Voter id" Tag="VOTE" />
                     </ComboBox>
-                    <TextBox Grid.Row="13" Grid.Column="1" Name="txt_AccountNumber" Margin="0 0 0 10"/>
-                    <TextBox Grid.Row="14" Grid.Column="1" Name="txt_PhoneNumber" Margin="0 0 0 10"/>
-                    <TextBox Grid.Row="15" Grid.Column="1" Name="txt_Nominee" Margin="0 0 0 10"/>
-                    <TextBox Grid.Row="16" Grid.Column="1" Name="txt_Relation" Margin="0 0 0 10"/>
-                    <ComboBox Grid.Row="17" Grid.Column="1" x:Name="cb_QuoteType" Margin="0 0 0 10">
+                    <!--<TextBox Grid.Row="13" Grid.Column="1" Name="txt_AccountNumber" Margin="0 0 0 10"/>-->
+                    <TextBox Grid.Row="13" Grid.Column="1" Name="txt_PhoneNumber" Margin="0 0 0 10"/>
+                    <TextBox Grid.Row="14" Grid.Column="1" Name="txt_Nominee" Margin="0 0 0 10"/>
+                    <TextBox Grid.Row="15" Grid.Column="1" Name="txt_Relation" Margin="0 0 0 10"/>
+                    <ComboBox Grid.Row="16" Grid.Column="1" x:Name="cb_QuoteType" Margin="0 0 0 10">
                         <ComboBoxItem Content="Health" Tag="HEALTH" IsSelected="True" />
                         <ComboBoxItem Content="Travel" Tag="TRAVEL" />
                         <ComboBoxItem Content="Automobile" Tag="AUTOMOBILE" />
@@ -88,7 +92,10 @@
 
                 </Grid>
             </Border>
-            <Button x:Name="btn_SaveQuote" Click="Btn_SaveQuote_Click" Content="Save" Width="100" Padding="5" Margin="0 0 0 10" />
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btn_SaveQuote" Click="Btn_SaveQuote_Click" Content="Save" Width="100" Padding="5" Margin="10 0 0 10" />
+                <Button x:Name="btn_CancelQuote" Click="Btn_CancelQuote_Click" Content="Cancel" Width="100" Padding="5" Margin="10 0 0 10" />
+            </WrapPanel>
         </StackPanel>
     </ScrollViewer>
 </Window>

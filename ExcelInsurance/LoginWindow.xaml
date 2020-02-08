@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExcelInsurance"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="600" FontSize="16" WindowStartupLocation="CenterScreen">
+        Title="ExcelCult" Height="450" Width="600" FontSize="16" WindowStartupLocation="CenterScreen">
     <Border Margin="20">
         <StackPanel>
             <TextBlock Text="ExcelCult" FontSize="50" FontWeight="UltraBold" HorizontalAlignment="Center"/>

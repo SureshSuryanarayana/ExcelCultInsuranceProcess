@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExcelInsurance"
         mc:Ignorable="d"
-        Title="Excel Insurance" Height="600" Width="800" WindowStartupLocation="CenterScreen" FontSize="16" Loaded="Window_Loaded">
+        Title="ExcelCult" Height="600" Width="800" WindowStartupLocation="CenterScreen" FontSize="16" Loaded="Window_Loaded">
     <Border Margin="20" Padding="10" BorderBrush="LightGray" BorderThickness="2">
         <ScrollViewer>
             <StackPanel>
@@ -38,15 +38,14 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
-                            <RowDefinition />
 
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Insurer firstname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Insurer lastname" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Middle name" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Gender" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="Email id" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Total amount" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Sum Amount" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="5" Grid.Column="0" Text="Start date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="6" Grid.Column="0" Text="End date" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="7" Grid.Column="0" Text="Address" HorizontalAlignment="Left" Margin="0 0 0 10"/>
@@ -55,34 +54,39 @@
                         <TextBlock Grid.Row="10" Grid.Column="0" Text="Pin code" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="11" Grid.Column="0" Text="Agent name" HorizontalAlignment="Left" Margin="0 0 0 10"/>
                         <TextBlock Grid.Row="12" Grid.Column="0" Text="Address proof type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="13" Grid.Column="0" Text="Account number" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="14" Grid.Column="0" Text="Phone number" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="15" Grid.Column="0" Text="Nominee" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="16" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <TextBlock Grid.Row="17" Grid.Column="0" Text="Policy type" HorizontalAlignment="Left" Margin="0 0 0 10"/>
-                        <Button Grid.Row="18" Grid.Column="0" x:Name="btn_UploadFile" Click="Btn_UploadFile_Click" Content="Upload a file" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <!--<TextBlock Grid.Row="13" Grid.Column="0" Text="Account number" HorizontalAlignment="Left" Margin="0 0 0 10"/>-->
+                        <TextBlock Grid.Row="13" Grid.Column="0" Text="Phone number" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="14" Grid.Column="0" Text="Nominee" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="15" Grid.Column="0" Text="Relation" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <TextBlock Grid.Row="16" Grid.Column="0" Text="Department" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                        <Button Grid.Row="17" Grid.Column="0" x:Name="btn_UploadFile" Click="Btn_UploadFile_Click" Content="Upload a file" HorizontalAlignment="Left" Margin="0 0 0 10"/>
 
                         <TextBox Grid.Row="0" Grid.Column="1" Name="txt_Firstname" Margin="0 0 0 10"/>
                         <TextBox Grid.Row="1" Grid.Column="1" Name="txt_Lastname" Margin="0 0 0 10"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" Name="txt_Middlename" Margin="0 0 0 10"/>
+                        <WrapPanel Grid.Row="2" Grid.Column="1" Margin="0 0 0 10">
+                            <RadioButton Name="rbm" Content="Male" Margin="15 0 0 0"/>
+                            <RadioButton Name="rbf" Content="Female"  Margin="15 0 0 0"/>
+                            <RadioButton Name="rbo" Content="Others"  Margin="15 0 0 0"/>
+                        </WrapPanel>
                         <TextBox Grid.Row="3" Grid.Column="1" Name="txt_Email" Margin="0 0 0 10"/>
                         <TextBox Grid.Row="4" Grid.Column="1" Name="txt_TotalAmount" Margin="0 0 0 10"/>
-                        <DatePicker Grid.Row="5" Grid.Column="1" Name="date_StartDate" SelectedDateFormat="Long" Margin="0 0 0 10"/>
-                        <DatePicker Grid.Row="6" Grid.Column="1" Name="date_EndDate" SelectedDateFormat="Long" Margin="0 0 0 10"/>
+                        <DatePicker Grid.Row="5" Grid.Column="1" Name="date_StartDate" SelectedDateFormat="Short" Margin="0 0 0 10"/>
+                        <DatePicker Grid.Row="6" Grid.Column="1" Name="date_EndDate" SelectedDateFormat="Short" Margin="0 0 0 10"/>
                         <TextBox Grid.Row="7" Grid.Column="1" Name="txt_Address" TextWrapping="Wrap" AcceptsReturn="True" Margin="0 0 0 10"/>
                         <TextBox Grid.Row="8" Grid.Column="1" Name="txt_State" Margin="0 0 0 10"/>
-                        <TextBox Grid.Row="9" Grid.Column="1" Name="txt_Country" Margin="0 0 0 10"/>
+                        <!--<TextBox Grid.Row="8" Grid.Column="1" Name="txt_Country" Margin="0 0 0 10"/>-->
+                        <ComboBox Name="cb_Country" Grid.Row="9" Grid.Column="1" Margin="0 0 0 10" DisplayMemberPath="Description" SelectedValuePath="Code" />
                         <TextBox Grid.Row="10" Grid.Column="1" Name="txt_Pincode" Margin="0 0 0 10"/>
                         <TextBox Grid.Row="11" Grid.Column="1" Name="txt_AgentName" Margin="0 0 0 10"/>
                         <ComboBox Grid.Row="12" Grid.Column="1" Name="cb_AddrProofType" Margin="0 0 0 10">
                             <ComboBoxItem Content="Passport" Tag="PASS" />
                             <ComboBoxItem Content="Voter id" Tag="VOTE" />
                         </ComboBox>
-                        <TextBox Grid.Row="13" Grid.Column="1" Name="txt_AccountNumber" Margin="0 0 0 10"/>
-                        <TextBox Grid.Row="14" Grid.Column="1" Name="txt_PhoneNumber" Margin="0 0 0 10"/>
-                        <TextBox Grid.Row="15" Grid.Column="1" Name="txt_Nominee" Margin="0 0 0 10"/>
-                        <TextBox Grid.Row="16" Grid.Column="1" Name="txt_Relation" Margin="0 0 0 10"/>
-                        <ComboBox Grid.Row="17" Grid.Column="1" x:Name="cb_PolicyType" Margin="0 0 0 10">
+                        <!--<TextBox Grid.Row="13" Grid.Column="1" Name="txt_AccountNumber" Margin="0 0 0 10"/>-->
+                        <TextBox Grid.Row="13" Grid.Column="1" Name="txt_PhoneNumber" Margin="0 0 0 10"/>
+                        <TextBox Grid.Row="14" Grid.Column="1" Name="txt_Nominee" Margin="0 0 0 10"/>
+                        <TextBox Grid.Row="15" Grid.Column="1" Name="txt_Relation" Margin="0 0 0 10"/>
+                        <ComboBox Grid.Row="16" Grid.Column="1" x:Name="cb_PolicyType" Margin="0 0 0 10">
                             <ComboBoxItem Content="Health" Tag="HEALTH" IsSelected="True" />
                             <ComboBoxItem Content="Travel" Tag="TRAVEL" />
                             <ComboBoxItem Content="Automobile" Tag="AUTOMOBILE" />
@@ -92,7 +96,11 @@
 
                     </Grid>
                 </Border>
-                <Button x:Name="btn_Update" Content="Update" Width="150" Click="Btn_Update_Click" />
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btn_Update" Content="Update" Width="100" Click="Btn_Update_Click" Margin="10 0 0 0" />
+                    <Button x:Name="btn_Cancel" Content="Cancel" Width="100" Click="Btn_Cancel_Click" Margin="10 0 0 0"/>
+                </WrapPanel>
+                
             </StackPanel>
         </ScrollViewer>
     </Border>

@@ -8,7 +8,7 @@ namespace ExcelInsurance.Repository.Interfaces
     {
         List<Policy> GetPolicies(string filter);
         Policy GetPolicy(int policyId);
-        bool AddPolicy(Policy policy);
+        int AddPolicy(Policy policy);
         bool RemovePolicy(int policyId);
         bool UpdatePolicy(Policy policy);
 

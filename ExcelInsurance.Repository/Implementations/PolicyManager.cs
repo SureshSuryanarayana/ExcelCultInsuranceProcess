@@ -26,7 +26,7 @@ namespace ExcelInsurance.Repository.Implementations
             }
         }
 
-        public bool AddPolicy(Policy policy)
+        public int AddPolicy(Policy policy)
         {
             string query = @"insert into tblPolicy
                                 (StartDate,
@@ -47,7 +47,8 @@ namespace ExcelInsurance.Repository.Implementations
                                 Nominee,
                                 Relation,
                                 DocumentPath,
-                                Type) values 
+                                Type,
+                                Gender) values 
                                 (@StartDate,
                                 @EndDate,
                                 @Amount,
@@ -66,11 +67,12 @@ namespace ExcelInsurance.Repository.Implementations
                                 @Nominee,
                                 @Relation,
                                 @DocumentPath,
-                                @Type)";
+                                @Type,
+                                @Gender);select last_insert_rowid()";
             using (dbConnection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString))
             {
-                int result = dbConnection.Execute(query, policy);
-                return result > 0 ? true : false;
+                int result = dbConnection.Query<int>(query, policy).Single();
+                return result;
             }
         }
 
@@ -78,7 +80,7 @@ namespace ExcelInsurance.Repository.Implementations
         {
             using (dbConnection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString))
             {
-                int result = dbConnection.Execute("delete from tblDocuments where Id=@Id", new { Id = policyId });
+                int result = dbConnection.Execute("delete from tblDocuments where PolicyId=@Id", new { Id = policyId });
             }
         }
 
@@ -142,7 +144,8 @@ namespace ExcelInsurance.Repository.Implementations
                                     Nominee = @Nominee,
                                     Relation = @Relation,
                                     Type = @Type,
-                                    DocumentPath = @DocumentPath where Id=@Id";
+                                    DocumentPath = @DocumentPath,
+                                    Gender = @Gender where Id=@Id";
                 int result = dbConnection.Execute(query, policy);
                 return result > 0 ? true : false;
             }

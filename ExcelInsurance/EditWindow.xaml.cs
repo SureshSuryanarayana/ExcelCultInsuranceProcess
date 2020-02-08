@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,11 +29,16 @@ namespace ExcelInsurance
         private Quote _quote;
         private IPolicyManager policyManager;
         private IQuoteManager quoteManager;
+        private ICountryManager countryManager;
+        public List<Country> countriesList { get; set; }
         public EditWindow()
         {
             InitializeComponent();
             policyManager = new PolicyManager();
             quoteManager = new QuoteManager();
+            countryManager = new CountryManager();
+            countriesList = countryManager.GetCountries();
+            
         }
 
         public EditWindow(string type, object context)
@@ -40,54 +46,67 @@ namespace ExcelInsurance
             InitializeComponent();
             policyManager = new PolicyManager();
             quoteManager = new QuoteManager();
+            countryManager = new CountryManager();
+            countriesList = countryManager.GetCountries();
+            cb_Country.ItemsSource = countriesList;
 
             _viewType = type;
             try
             {
                 if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_POLICY"])
                 {
-                    _policy = (Policy)context;
+                    int _policyId = (int)context;
+                    _policy = policyManager.GetPolicy(_policyId);
                     txtb_header.Text = "Editing Policy : " + _policy.Id.ToString();
                     txt_Firstname.Text = _policy.InsurerFirstName;
                     txt_Lastname.Text = _policy.InsurerLastName;
-                    txt_Middlename.Text = _policy.InsurerMiddleName;
+                    //txt_Middlename.Text = _policy.InsurerMiddleName;
                     txt_Email.Text = _policy.Email;
                     txt_PhoneNumber.Text = _policy.Phone;
                     txt_TotalAmount.Text = _policy.Amount.ToString();
                     txt_Address.Text = _policy.Address;
                     txt_State.Text = _policy.State;
-                    txt_Country.Text = _policy.Country;
+                    
                     txt_Pincode.Text = _policy.Pin.ToString();
-                    txt_AccountNumber.Text = _policy.BankAccountNumber;
+                    //txt_AccountNumber.Text = _policy.BankAccountNumber;
                     txt_AgentName.Text = _policy.AgentName;
                     txt_Nominee.Text = _policy.Nominee;
                     txt_Relation.Text = _policy.Relation;
                     date_StartDate.SelectedDate = _policy.StartDate;
                     date_EndDate.SelectedDate = _policy.EndDate;
 
+                    if (_policy.Gender == "MALE") { rbm.IsChecked = true; }
+                    else if (_policy.Gender == "FEMALE") { rbf.IsChecked = true; }
+                    else rbo.IsChecked = true;
+
                 }
                 else if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_QUOTE"])
                 {
+                    int _quoteId = (int)context;
+                    _quote = quoteManager.GetQuote(_quoteId);
                     btn_UploadFile.Visibility = Visibility.Hidden;
-                    _quote = (Quote)context;
                     txtb_header.Text = "Editing Quote : " + _quote.Id.ToString();
                     txt_Firstname.Text = _quote.InsurerFirstName;
                     txt_Lastname.Text = _quote.InsurerLastName;
-                    txt_Middlename.Text = _quote.InsurerMiddleName;
+                    //txt_Middlename.Text = _quote.InsurerMiddleName;
                     txt_Email.Text = _quote.Email;
                     txt_PhoneNumber.Text = _quote.Phone;
                     txt_TotalAmount.Text = _quote.Amount.ToString();
                     txt_Address.Text = _quote.Address;
                     txt_State.Text = _quote.State;
-                    txt_Country.Text = _quote.Country;
+                    
                     txt_Pincode.Text = _quote.Pin.ToString();
-                    txt_AccountNumber.Text = _quote.BankAccountNumber;
+                    //txt_AccountNumber.Text = _quote.BankAccountNumber;
                     txt_AgentName.Text = _quote.AgentName;
                     txt_Nominee.Text = _quote.Nominee;
                     txt_Relation.Text = _quote.Relation;
 
                     date_StartDate.SelectedDate = _quote.StartDate;
                     date_EndDate.SelectedDate = _quote.EndDate;
+
+                    if (_quote.Gender == "MALE") { rbm.IsChecked = true; }
+                    else if (_quote.Gender == "FEMALE") { rbf.IsChecked = true; }
+                    else rbo.IsChecked = true;
 
                 }
             }
@@ -103,11 +122,13 @@ namespace ExcelInsurance
             {
                 if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_POLICY"])
                 {
+                    this.cb_Country.SelectedValue = _policy.Country;
                     cb_PolicyType.SelectedItem = cb_PolicyType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_policy.Type));
                     cb_AddrProofType.SelectedItem = cb_AddrProofType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_policy.AddressProofType));
                 }
                 else if (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_QUOTE"])
                 {
+                    this.cb_Country.SelectedValue = _quote.Country;
                     cb_PolicyType.SelectedItem = cb_PolicyType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_quote.Type));
                     cb_AddrProofType.SelectedItem = cb_AddrProofType.Items.Cast<ComboBoxItem>().Single(t => t.Tag.Equals(_quote.AddressProofType));
                 }
@@ -159,18 +180,18 @@ namespace ExcelInsurance
                     validationCheck = false;
                 }
                 else { this.txt_State.BorderBrush = Brushes.Black; }
-                if (String.IsNullOrEmpty(this.txt_Country.Text))
+                if (this.cb_Country.SelectedItem == null)
                 {
-                    this.txt_Country.BorderBrush = Brushes.Red;
+                    this.cb_Country.BorderBrush = Brushes.Red;
                     validationCheck = false;
                 }
-                else { this.txt_Country.BorderBrush = Brushes.Black; }
-                if (String.IsNullOrEmpty(this.txt_AccountNumber.Text))
-                {
-                    this.txt_AccountNumber.BorderBrush = Brushes.Red;
-                    validationCheck = false;
-                }
-                else { this.txt_AccountNumber.BorderBrush = Brushes.Black; }
+                else { this.cb_Country.BorderBrush = Brushes.Black; }
+                //if (String.IsNullOrEmpty(this.txt_AccountNumber.Text))
+                //{
+                //    this.txt_AccountNumber.BorderBrush = Brushes.Red;
+                //    validationCheck = false;
+                //}
+                //else { this.txt_AccountNumber.BorderBrush = Brushes.Black; }
                 if (String.IsNullOrEmpty(this.txt_Email.Text))
                 {
                     this.txt_Email.BorderBrush = Brushes.Red;
@@ -208,6 +229,17 @@ namespace ExcelInsurance
 
                 if (validationCheck && (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_POLICY"].ToString()))
                 {
+                    try
+                    {
+                        MailAddress mail = new MailAddress(this.txt_Email.Text);
+                    }
+                    catch (FormatException ex)
+                    {
+                        this.txt_Email.BorderBrush = Brushes.Red;
+                        MessageBox.Show("Please enter valid Email");
+                        return;
+                    }
+
                     double totalAmount;
                     if (!double.TryParse(this.txt_TotalAmount.Text, out totalAmount))
                     {
@@ -223,32 +255,37 @@ namespace ExcelInsurance
                         return;
                     }
 
-                    double account;
-                    if (!double.TryParse(this.txt_AccountNumber.Text, out account))
-                    {
-                        this.txt_AccountNumber.BorderBrush = Brushes.Red;
-                        MessageBox.Show("Please enter valid account number");
-                        return;
-                    }
+                    //double account;
+                    //if (!double.TryParse(this.txt_AccountNumber.Text, out account))
+                    //{
+                    //    this.txt_AccountNumber.BorderBrush = Brushes.Red;
+                    //    MessageBox.Show("Please enter valid account number");
+                    //    return;
+                    //}
 
                     double phone;
-                    if (!double.TryParse(this.txt_PhoneNumber.Text, out phone))
+                    if (!double.TryParse(this.txt_PhoneNumber.Text, out phone) || this.txt_PhoneNumber.Text.Length != 10)
                     {
                         this.txt_PhoneNumber.BorderBrush = Brushes.Red;
                         MessageBox.Show("Please enter valid phone number");
                         return;
                     }
+
+                    if (rbm.IsChecked == true) { _policy.Gender = "MALE"; }
+                    else if (rbf.IsChecked == true) { _policy.Gender = "FEMALE"; }
+                    else _policy.Gender = "OTHERS";
+
                     _policy.InsurerFirstName = this.txt_Firstname.Text;
                     _policy.InsurerLastName = this.txt_Lastname.Text;
-                    _policy.InsurerMiddleName = this.txt_Middlename.Text;
+                    //_policy.InsurerMiddleName = this.txt_Middlename.Text;
                     _policy.Email = this.txt_Email.Text;
                     _policy.Phone = this.txt_PhoneNumber.Text;
                     _policy.Address = this.txt_Address.Text;
                     _policy.State = this.txt_State.Text;
-                    _policy.Country = this.txt_Country.Text;
+                    _policy.Country = this.cb_Country.SelectedValue.ToString();
                     _policy.StartDate = this.date_StartDate.SelectedDate;
                     _policy.EndDate = this.date_EndDate.SelectedDate;
-                    _policy.BankAccountNumber = this.txt_AccountNumber.Text;
+                    //_policy.BankAccountNumber = this.txt_AccountNumber.Text;
                     _policy.AddressProofType = ((ComboBoxItem)(this.cb_AddrProofType.SelectedItem)).Tag.ToString();
                     _policy.Amount = Convert.ToDouble(this.txt_TotalAmount.Text);
                     _policy.Relation = this.txt_Relation.Text;
@@ -269,6 +306,16 @@ namespace ExcelInsurance
                 }
                 else if (validationCheck && (_viewType == ConfigurationManager.AppSettings["VIEW_TYPE_QUOTE"].ToString()))
                 {
+                    try
+                    {
+                        MailAddress mail = new MailAddress(this.txt_Email.Text);
+                    }
+                    catch (FormatException ex)
+                    {
+                        this.txt_Email.BorderBrush = Brushes.Red;
+                        MessageBox.Show("Please enter valid Email");
+                        return;
+                    }
                     double totalAmount;
                     if (!double.TryParse(this.txt_TotalAmount.Text, out totalAmount))
                     {
@@ -284,32 +331,37 @@ namespace ExcelInsurance
                         return;
                     }
 
-                    double account;
-                    if (!double.TryParse(this.txt_AccountNumber.Text, out account))
-                    {
-                        this.txt_AccountNumber.BorderBrush = Brushes.Red;
-                        MessageBox.Show("Please enter valid account number");
-                        return;
-                    }
+                    //double account;
+                    //if (!double.TryParse(this.txt_AccountNumber.Text, out account))
+                    //{
+                    //    this.txt_AccountNumber.BorderBrush = Brushes.Red;
+                    //    MessageBox.Show("Please enter valid account number");
+                    //    return;
+                    //}
 
                     double phone;
-                    if (!double.TryParse(this.txt_PhoneNumber.Text, out phone))
+                    if (!double.TryParse(this.txt_PhoneNumber.Text, out phone) || this.txt_PhoneNumber.Text.Length != 10)
                     {
                         this.txt_PhoneNumber.BorderBrush = Brushes.Red;
                         MessageBox.Show("Please enter valid phone number");
                         return;
                     }
+
+                    if (rbm.IsChecked == true) { _quote.Gender = "MALE"; }
+                    else if (rbf.IsChecked == true) { _quote.Gender = "FEMALE"; }
+                    else _quote.Gender = "OTHERS";
+
                     _quote.InsurerFirstName = this.txt_Firstname.Text;
                     _quote.InsurerLastName = this.txt_Lastname.Text;
-                    _quote.InsurerMiddleName = this.txt_Middlename.Text;
+                    //_quote.InsurerMiddleName = this.txt_Middlename.Text;
                     _quote.Email = this.txt_Email.Text;
                     _quote.Phone = this.txt_PhoneNumber.Text;
                     _quote.Address = this.txt_Address.Text;
                     _quote.State = this.txt_State.Text;
-                    _quote.Country = this.txt_Country.Text;
+                    _quote.Country = this.cb_Country.SelectedValue.ToString();
                     _quote.StartDate = this.date_StartDate.SelectedDate;
                     _quote.EndDate = this.date_EndDate.SelectedDate;
-                    _quote.BankAccountNumber = this.txt_AccountNumber.Text;
+                    //_quote.BankAccountNumber = this.txt_AccountNumber.Text;
                     _quote.AddressProofType = ((ComboBoxItem)(this.cb_AddrProofType.SelectedItem)).Tag.ToString();
                     _quote.Amount = Convert.ToDouble(this.txt_TotalAmount.Text);
                     _quote.Relation = this.txt_Relation.Text;
@@ -345,6 +397,9 @@ namespace ExcelInsurance
             fileUpload.ShowDialog();
         }
 
-        
+        private void Btn_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

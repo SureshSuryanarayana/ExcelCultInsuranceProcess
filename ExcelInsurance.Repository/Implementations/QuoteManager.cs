@@ -13,7 +13,7 @@ namespace ExcelInsurance.Repository.Implementations
     public class QuoteManager : IQuoteManager
     {
         IDbConnection dbConnection;
-        public bool AddQuote(Quote quote)
+        public int AddQuote(Quote quote)
         {
             string query = @"insert into tblQuote
                                 (StartDate,
@@ -33,7 +33,8 @@ namespace ExcelInsurance.Repository.Implementations
                                 Phone,
                                 Nominee,
                                 Relation,
-                                Type
+                                Type,
+                                Gender
                                 ) values 
                                 (@StartDate,
                                 @EndDate,
@@ -52,12 +53,13 @@ namespace ExcelInsurance.Repository.Implementations
                                 @Phone,
                                 @Nominee,
                                 @Relation,
-                                @Type
-                                )";
+                                @Type,
+                                @Gender
+                                );select last_insert_rowid()";
             using (dbConnection = new SQLiteConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString))
             {
-                int result = dbConnection.Execute(query, quote);
-                return result > 0 ? true : false;
+                int result = dbConnection.Query<int>(query, quote).Single();
+                return result;
             }
         }
 
@@ -109,7 +111,8 @@ namespace ExcelInsurance.Repository.Implementations
                                     Phone = @Phone,
                                     Nominee = @Nominee,
                                     Relation = @Relation,
-                                    Type = @Type
+                                    Type = @Type,
+                                    Gender = @Gender
                                     where Id=@Id";
                 int result = dbConnection.Execute(query, quote);
                 return result > 0 ? true : false;

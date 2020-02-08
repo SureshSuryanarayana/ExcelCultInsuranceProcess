@@ -8,7 +8,7 @@ namespace ExcelInsurance.Repository.Interfaces
     {
         List<Quote> GetQuotes(string filter);
         Quote GetQuote(int quoteId);
-        bool AddQuote(Quote quote);
+        int AddQuote(Quote quote);
         bool RemoveQuote(int quoteId);
         bool UpdateQuote(Quote quote);
     }
